@@ -62,40 +62,44 @@ export type VectorQueryValue = {
 
 export type AudienceState = 'live' | 'paused' | 'deleted';
 
+type QueryFilterType =
+  | {
+      queryFilterComparisonType: 'vectorDistance';
+      queryValue: VectorQueryValue;
+    }
+  | {
+      queryFilterComparisonType: 'cosineSimilarity';
+      queryValue: VectorQueryValue;
+    }
+  | {
+      queryFilterComparisonType: 'arrayIntersects';
+      queryValue: StringArrayQueryValue;
+    };
+
+type EngineConditionCond<T> = T extends Record<string, unknown>
+  ? T & { featureVersion: number; queryProperty: string }
+  : void;
+
+type AudienceDefinitionCond<T> = T extends Record<string, unknown>
+  ? T & {
+      featureVersion: number;
+      queryProperty: string;
+      ttl: number;
+      lookBack: number;
+      occurrences: number;
+    }
+  : void;
+
+export type EngineConditionQuery = EngineConditionCond<QueryFilterType>;
+export type AudienceDefinitionValue = AudienceDefinitionCond<QueryFilterType>;
+
 export interface AudienceDefinition {
   accountId?: Record<string, AudienceState>;
   id: string;
   version: number;
   name: string;
   cacheFor?: number;
-  definition:
-    | {
-        featureVersion: number;
-        ttl: number;
-        lookBack: number;
-        occurrences: number;
-        queryProperty: string;
-        queryValue: VectorQueryValue;
-        queryFilterComparisonType: 'vectorDistance';
-      }
-    | {
-        featureVersion: number;
-        ttl: number;
-        lookBack: number;
-        occurrences: number;
-        queryProperty: string;
-        queryValue: VectorQueryValue;
-        queryFilterComparisonType: 'cosineSimilarity';
-      }
-    | {
-        featureVersion: number;
-        ttl: number;
-        lookBack: number;
-        occurrences: number;
-        queryProperty: string;
-        queryValue: StringArrayQueryValue;
-        queryFilterComparisonType: 'arrayIntersects';
-      };
+  definition: AudienceDefinitionValue;
 }
 
 export interface CachedAudienceMetaData {
@@ -109,26 +113,31 @@ export interface AudienceMetaData {
 }
 
 // Engine
+// ---
+const xyzw: AudienceDefinitionValue = {
+  ttl: 123,
+  lookBack: 456,
+  occurrences: 1,
+  featureVersion: 123,
+  queryProperty: 'norf',
+  queryFilterComparisonType: 'arrayIntersects',
+  queryValue: ['foof'],
+};
+const xyz: EngineConditionQuery = {
+  featureVersion: xyzw.featureVersion,
+  queryProperty: xyzw.queryProperty,
+  queryFilterComparisonType: xyzw.queryFilterComparisonType,
+  queryValue: xyzw.queryValue,
+};
 
-export type EngineConditionQuery =
-  | {
-      version: number;
-      property: string;
-      filterComparisonType: 'arrayIntersects';
-      value: StringArrayQueryValue;
-    }
-  | {
-      version: number;
-      property: string;
-      filterComparisonType: 'vectorDistance';
-      value: VectorQueryValue;
-    }
-  | {
-      version: number;
-      property: string;
-      filterComparisonType: 'cosineSimilarity';
-      value: VectorQueryValue;
-    };
+if (xyz.queryFilterComparisonType === 'arrayIntersects') {
+  const x: StringArrayQueryValue = xyz.queryValue;
+  console.log(x);
+}
+
+console.log(xyz, xyzw);
+
+/// ----
 
 export interface EngineConditionRule {
   reducer: {
