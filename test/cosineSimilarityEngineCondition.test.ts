@@ -1,4 +1,3 @@
-import 'jest';
 import { check } from '../src/engine';
 import { EngineCondition, QueryFilterComparisonType } from '../types';
 
@@ -93,6 +92,10 @@ const cosineSimilarityConditionV2: EngineCondition = {
 };
 
 describe('Cosine Similarity condition test', () => {
+  beforeAll(() => {
+    localStorage.clear();
+  });
+
   describe('Cosine Similarity condition', () => {
     it('matches the page view if similar enough', () => {
       const conditions = [cosineSimilarityCondition];
