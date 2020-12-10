@@ -1,4 +1,4 @@
-import { AudienceDefinition, EngineCondition } from '../../types';
+import { AudienceDefinition, EngineCondition, QueryFilterComparisonType } from '../../types';
 import { isStringArray, isVectorQueryValue } from '../utils';
 
 export const translate = (
@@ -8,7 +8,7 @@ export const translate = (
     filter: {
       queries:
         audienceDefinition.definition.queryFilterComparisonType ===
-          'arrayIntersects' &&
+          QueryFilterComparisonType.ARRAY_INTERSECTS &&
         isStringArray(audienceDefinition.definition.queryValue)
           ? [
               {
@@ -20,7 +20,7 @@ export const translate = (
               },
             ]
           : audienceDefinition.definition.queryFilterComparisonType ===
-              'vectorDistance' &&
+              QueryFilterComparisonType.VECTOR_DISTANCE &&
             isVectorQueryValue(audienceDefinition.definition.queryValue)
           ? [
               {
@@ -32,7 +32,7 @@ export const translate = (
               },
             ]
           : audienceDefinition.definition.queryFilterComparisonType ===
-            'cosineSimilarity' &&
+            QueryFilterComparisonType.COSINE_SIMILARITY &&
           isVectorQueryValue(audienceDefinition.definition.queryValue)
           ? [
               {

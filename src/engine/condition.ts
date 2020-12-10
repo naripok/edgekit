@@ -1,7 +1,7 @@
 import * as reducers from './reducers';
 import * as matchers from './matchers';
 import * as filters from './filters';
-import { PageView, EngineCondition } from '../../types';
+import { PageView, EngineCondition, QueryFilterComparisonType } from '../../types';
 import { isNumberArray, isStringArray } from '../utils';
 
 const createCondition = (condition: EngineCondition) => (
@@ -13,21 +13,21 @@ const createCondition = (condition: EngineCondition) => (
       return pageViews.filter((pageView) => {
         const queryFeatures = pageView.features[query.property];
 
-        if (query.filterComparisonType === 'arrayIntersects') {
+        if (query.filterComparisonType === QueryFilterComparisonType.ARRAY_INTERSECTS) {
           return (
             !!queryFeatures &&
             queryFeatures.version === query.version &&
             isStringArray(queryFeatures.value) &&
             filters.arrayIntersects(queryFeatures.value, query.value)
           );
-        } else if (query.filterComparisonType === 'vectorDistance') {
+        } else if (query.filterComparisonType === QueryFilterComparisonType.VECTOR_DISTANCE) {
           return (
             !!queryFeatures &&
             queryFeatures.version === query.version &&
             isNumberArray(queryFeatures.value) &&
             filters.vectorDistance(queryFeatures.value, query.value)
           );
-        } else if (query.filterComparisonType === 'cosineSimilarity') {
+        } else if (query.filterComparisonType === QueryFilterComparisonType.COSINE_SIMILARITY) {
           return (
             !!queryFeatures &&
             queryFeatures.version === query.version &&
