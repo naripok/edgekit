@@ -21,7 +21,7 @@ export const translate = (
             ]
           : audienceDefinition.definition.queryFilterComparisonType ===
               QueryFilterComparisonType.VECTOR_DISTANCE &&
-            isVectorQueryValue(audienceDefinition.definition.queryValue)
+            audienceDefinition.definition.queryValue.every(isVectorQueryValue)
           ? [
               {
                 version: audienceDefinition.definition.featureVersion,
@@ -33,7 +33,7 @@ export const translate = (
             ]
           : audienceDefinition.definition.queryFilterComparisonType ===
             QueryFilterComparisonType.COSINE_SIMILARITY &&
-          isVectorQueryValue(audienceDefinition.definition.queryValue)
+          audienceDefinition.definition.queryValue.every(isVectorQueryValue)
           ? [
               {
                 version: audienceDefinition.definition.featureVersion,

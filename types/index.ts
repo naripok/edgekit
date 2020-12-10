@@ -69,12 +69,12 @@ export enum QueryFilterComparisonType {
 }
 
 export interface VectorDistanceFilter {
-  queryValue: VectorQueryValue;
+  queryValue: VectorQueryValue[];
   queryFilterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE;
 }
 
 export interface CosineSimilarityFilter {
-  queryValue: VectorQueryValue;
+  queryValue: VectorQueryValue[];
   queryFilterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY;
 }
 
@@ -119,12 +119,12 @@ export type EngineConditionQueryArrayIntersectsFilter = {
 
 export type EngineConditionQueryVectorDistanceFilter = {
   filterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE;
-  value: VectorQueryValue;
+  value: VectorQueryValue[];
 }
 
 export type EngineConditionQueryCosineSimilarityFilter = {
   filterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY;
-  value: VectorQueryValue;
+  value: VectorQueryValue[];
 }
 
 export type EngineConditionQuery = {

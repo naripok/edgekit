@@ -4,42 +4,40 @@ import * as filters from './filters';
 import { PageView, EngineCondition, QueryFilterComparisonType } from '../../types';
 import { isNumberArray, isStringArray } from '../utils';
 
-const createCondition = (condition: EngineCondition) => (
-  pageViews: PageView[]
-): boolean => {
+const createCondition = (condition: EngineCondition) => (pageViews: PageView[]): boolean => {
   const { filter, rules } = condition;
   const filteredPageViews = filter.queries
-    .map((query) => {
-      return pageViews.filter((pageView) => {
-        const queryFeatures = pageView.features[query.property];
+  .map((query) => {
+    return pageViews.filter((pageView) => {
+      const queryFeatures = pageView.features[query.property];
 
-        if (query.filterComparisonType === QueryFilterComparisonType.ARRAY_INTERSECTS) {
-          return (
-            !!queryFeatures &&
+      if (query.filterComparisonType === QueryFilterComparisonType.ARRAY_INTERSECTS) {
+        return (
+          !!queryFeatures &&
             queryFeatures.version === query.version &&
             isStringArray(queryFeatures.value) &&
             filters.arrayIntersects(queryFeatures.value, query.value)
-          );
-        } else if (query.filterComparisonType === QueryFilterComparisonType.VECTOR_DISTANCE) {
-          return (
-            !!queryFeatures &&
+        );
+      } else if (query.filterComparisonType === QueryFilterComparisonType.VECTOR_DISTANCE) {
+        return (
+          !!queryFeatures &&
             queryFeatures.version === query.version &&
             isNumberArray(queryFeatures.value) &&
-            filters.vectorDistance(queryFeatures.value, query.value)
-          );
-        } else if (query.filterComparisonType === QueryFilterComparisonType.COSINE_SIMILARITY) {
-          return (
-            !!queryFeatures &&
+            query.value.some(value => filters.vectorDistance(queryFeatures.value as number[], value))
+        );
+      } else if (query.filterComparisonType === QueryFilterComparisonType.COSINE_SIMILARITY) {
+        return (
+          !!queryFeatures &&
             queryFeatures.version === query.version &&
             isNumberArray(queryFeatures.value) &&
-            filters.cosineSimilarity(queryFeatures.value, query.value)
-          );
-        } else {
-          return true;
-        }
-      });
-    })
-    .flat();
+            query.value.some(value => filters.cosineSimilarity(queryFeatures.value as number[], value))
+        );
+      } else {
+        return true;
+      }
+    });
+  })
+  .flat();
 
   const ruleResults = rules.map((rule) => {
     // TODO: allow other reducers...

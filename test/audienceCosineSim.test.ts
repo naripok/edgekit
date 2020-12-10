@@ -8,10 +8,10 @@ const cosineSimAudience: AudienceDefinition = {
     occurrences: 1,
     queryFilterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY,
     queryProperty: 'dv',
-    queryValue: {
+    queryValue: [{
       threshold: 0.8,
       vector: [1,1,1],
-    },
+    }],
     ttl: 2592000,
   },
   id: 'testid',

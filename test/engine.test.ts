@@ -135,10 +135,10 @@ const vectorCondition: EngineCondition = {
         version: 1,
         property: 'topicDist',
         filterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
-        value: {
+        value: [{
           vector: [0.4, 0.8, 0.3],
           threshold: 0.5,
-        },
+        }],
       },
     ],
   },
@@ -164,10 +164,10 @@ const vectorConditionV2: EngineCondition = {
         version: 2,
         property: 'topicDist',
         filterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
-        value: {
+        value: [{
           vector: [0.4, 0.8, 0.3],
           threshold: 0.5,
-        },
+        }],
       },
     ],
   },

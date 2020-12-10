@@ -83,10 +83,10 @@ const topicModelAudience: AudienceDefinition = {
     occurrences: 1,
     queryProperty: 'topicDist',
     queryFilterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
-    queryValue: {
+    queryValue: [{
       vector: [0.4, 0.8, 0.3],
       threshold: 0.5,
-    },
+    }],
   },
 };
 
@@ -318,10 +318,10 @@ describe('Topic model run with additional audience', () => {
       lookBack: 1000,
       queryProperty: 'topicDist',
       queryFilterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
-      queryValue: {
+      queryValue: [{
         threshold: 0.5,
         vector: [0.4, 0.8, 0.3],
-      },
+      }],
     },
   };
 
@@ -427,10 +427,10 @@ describe('Topic model run version mismatch', () => {
       lookBack: 1000,
       queryProperty: 'topicDist',
       queryFilterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
-      queryValue: {
+      queryValue: [{
         threshold: 0.5,
         vector: [0.4, 0.8, 0.3],
-      },
+      }],
     },
   };
 
