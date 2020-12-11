@@ -12,14 +12,22 @@ import {
 export const translate = (
   audienceDefinition: AudienceDefinition
 ): EngineCondition[] => {
+
+  const {
+    filterComparisonType,
+    value,
+    featureVersion,
+    queryProperty
+  } = audienceDefinition.definition;
+
   return [{
     filter: {
       queries: [
         {
-          version: audienceDefinition.definition.featureVersion,
-          property: audienceDefinition.definition.queryProperty,
-          filterComparisonType: audienceDefinition.definition.queryFilterComparisonType,
-          value: audienceDefinition.definition.queryValue,
+          version: featureVersion,
+          property: queryProperty,
+          filterComparisonType,
+          value,
         } as EngineConditionQuery,
       ]
     },

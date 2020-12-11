@@ -37,8 +37,8 @@ const sportAudience: AudienceDefinition = {
     lookBack: 10,
     occurrences: 2,
     queryProperty: 'keywords',
-    queryFilterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
-    queryValue: ['sport'],
+    filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
+    value: ['sport'],
   },
 };
 
@@ -52,8 +52,8 @@ const lookBackInfinityAudience: AudienceDefinition = {
     lookBack: 0,
     occurrences: 2,
     queryProperty: 'keywords',
-    queryFilterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
-    queryValue: [''],
+    filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
+    value: [''],
   },
 };
 
@@ -67,8 +67,8 @@ const lookBackAudience: AudienceDefinition = {
     lookBack: 2,
     occurrences: 2,
     queryProperty: 'keywords',
-    queryFilterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
-    queryValue: [''],
+    filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
+    value: [''],
   },
 };
 
@@ -82,8 +82,8 @@ const topicModelAudience: AudienceDefinition = {
     lookBack: 2,
     occurrences: 1,
     queryProperty: 'topicDist',
-    queryFilterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
-    queryValue: [{
+    filterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
+    value: [{
       vector: [0.4, 0.8, 0.3],
       threshold: 0.5,
     }],
@@ -317,8 +317,8 @@ describe('Topic model run with additional audience', () => {
       ttl: 1000,
       lookBack: 1000,
       queryProperty: 'topicDist',
-      queryFilterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
-      queryValue: [{
+      filterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
+      value: [{
         threshold: 0.5,
         vector: [0.4, 0.8, 0.3],
       }],
@@ -335,8 +335,8 @@ describe('Topic model run with additional audience', () => {
       ttl: 1000,
       lookBack: 1000,
       queryProperty: 'keywords',
-      queryFilterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
-      queryValue: ['sport', 'Leeds United A.F.C.'],
+      filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
+      value: ['sport', 'Leeds United A.F.C.'],
     },
   };
 
@@ -426,8 +426,8 @@ describe('Topic model run version mismatch', () => {
       ttl: 1000,
       lookBack: 1000,
       queryProperty: 'topicDist',
-      queryFilterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
-      queryValue: [{
+      filterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
+      value: [{
         threshold: 0.5,
         vector: [0.4, 0.8, 0.3],
       }],
@@ -444,8 +444,8 @@ describe('Topic model run version mismatch', () => {
       ttl: 1000,
       lookBack: 1000,
       queryProperty: 'keywords',
-      queryFilterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
-      queryValue: ['sport', 'Leeds United A.F.C.'],
+      filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
+      value: ['sport', 'Leeds United A.F.C.'],
     },
   };
 

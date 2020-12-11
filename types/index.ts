@@ -83,18 +83,18 @@ export interface AudienceMetaData {
  */
 
 export interface ArrayIntersectsFilter {
-  queryValue: StringArrayQueryValue;
-  queryFilterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS;
+  value: StringArrayQueryValue;
+  filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS;
 }
 
 export interface VectorDistanceFilter {
-  queryValue: VectorQueryValue[];
-  queryFilterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE;
+  value: VectorQueryValue[];
+  filterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE;
 }
 
 export interface CosineSimilarityFilter {
-  queryValue: VectorQueryValue[];
-  queryFilterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY;
+  value: VectorQueryValue[];
+  filterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY;
 }
 
 export type AudienceDefinitionFilter =
@@ -127,30 +127,10 @@ export interface AudienceDefinition {
  * subrecords derived from AudienceDefinitionFilter types
  */
 
-export type EngineConditionQueryArrayIntersectsFilter = {
-  filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS;
-  value: StringArrayQueryValue;
-}
-
-export type EngineConditionQueryVectorDistanceFilter = {
-  filterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE;
-  value: VectorQueryValue[];
-}
-
-export type EngineConditionQueryCosineSimilarityFilter = {
-  filterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY;
-  value: VectorQueryValue[];
-}
-
-export type EngineConditionFilter =
-  | EngineConditionQueryArrayIntersectsFilter
-  | EngineConditionQueryVectorDistanceFilter
-  | EngineConditionQueryCosineSimilarityFilter;
-
 export type EngineConditionQuery = {
   version: number;
   property: string;
-} & EngineConditionFilter;
+} & AudienceDefinitionFilter;
 
 export interface EngineConditionRule {
   reducer: {
