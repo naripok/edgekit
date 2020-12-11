@@ -1,16 +1,21 @@
 import 'jest';
 import { check } from '../src/engine';
-import { EngineCondition, QueryFilterComparisonType, VectorDistanceFilter } from '../types';
+import {
+  EngineCondition,
+  QueryFilterComparisonType,
+  VectorDistanceFilter,
+  PageView
+} from '../types';
 
-/* TODO Property based tests for engine behaviors
+/* TODO queryProperty based tests for engine behaviors
 */
 const vectorCondition: EngineCondition<VectorDistanceFilter> = {
   filter: {
     any: false,
     queries: [
       {
-        version: 1,
-        property: 'topicDist',
+        featureVersion: 1,
+        queryProperty: 'topicDist',
         filterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
         value: [{
           vector: [0.4, 0.8, 0.3],
@@ -32,14 +37,14 @@ const vectorCondition: EngineCondition<VectorDistanceFilter> = {
   ],
 };
 
-// Vector condition with a bumped version
+// Vector condition with a bumped featureVersion
 const vectorConditionV2: EngineCondition<VectorDistanceFilter> = {
   filter: {
     any: false,
     queries: [
       {
-        version: 2,
-        property: 'topicDist',
+        featureVersion: 2,
+        queryProperty: 'topicDist',
         filterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
         value: [{
           vector: [0.4, 0.8, 0.3],
@@ -66,7 +71,7 @@ describe('VectorDistance condition test', () => {
     it('matches the page view if similar enough', async () => {
       const conditions = [vectorCondition];
 
-      const pageViews = [
+      const pageViews: PageView[] = [
         {
           ts: 100,
           features: {
@@ -86,7 +91,7 @@ describe('VectorDistance condition test', () => {
     it('does not match the page view if not similar enough', async () => {
       const conditions = [vectorCondition];
 
-      const pageViews = [
+      const pageViews: PageView[] = [
         {
           ts: 100,
           features: {
@@ -113,11 +118,11 @@ describe('VectorDistance condition test', () => {
     });
   });
 
-  describe('Vector condition with a bumped version', () => {
-    it('matches the page view if similar enough and has the same version', async () => {
+  describe('Vector condition with a bumped featureVersion', () => {
+    it('matches the page view if similar enough and has the same featureVersion', async () => {
       const conditions = [vectorConditionV2];
 
-      const pageViews = [
+      const pageViews: PageView[] = [
         {
           ts: 100,
           features: {
@@ -134,10 +139,10 @@ describe('VectorDistance condition test', () => {
       expect(result).toBe(true);
     });
 
-    it('does not match the page view if similar enough but does not have the same version', async () => {
+    it('does not match the page view if similar enough but does not have the same featureVersion', async () => {
       const conditions = [vectorConditionV2];
 
-      const pageViews = [
+      const pageViews: PageView[] = [
         {
           ts: 100,
           features: {

@@ -25,7 +25,7 @@ const createCondition = (condition: EngineCondition<AudienceDefinitionFilter>) =
   const filteredPageViews = filter.queries
   .map((query) => {
     return pageViews.filter((pageView) => {
-      const queryFeatures: PageFeatureResult = pageView.features[query.property];
+      const queryFeatures: PageFeatureResult = pageView.features[query.queryProperty];
       return isArrayIntersectsFilter(query)
         ? checkArrayIntersects(queryFeatures, query)
         : isVectorDistanceFilter(query)
@@ -65,14 +65,14 @@ export default createCondition;
 const checkArrayIntersects =
   (features: PageFeatureResult, query: EngineConditionQuery<ArrayIntersectsFilter>): boolean =>
   !!features &&
-  features.version === query.version &&
+  features.version === query.featureVersion &&
   isStringArray(features.value) &&
   filters.arrayIntersects(features.value, query.value);
 
 const checkVectorDistanceLesserThanThreshold =
   (features: PageFeatureResult, query: EngineConditionQuery<VectorDistanceFilter>): boolean =>
   !!features &&
-  features.version === query.version &&
+  features.version === query.featureVersion &&
   query.value.some(value =>
                    isNumberArray(features.value) &&
                    filters.vectorDistance(features.value, value));
@@ -80,7 +80,7 @@ const checkVectorDistanceLesserThanThreshold =
 const checkCosineSimilarityLesserThanThreshold =
   (features: PageFeatureResult, query: EngineConditionQuery<CosineSimilarityFilter>): boolean =>
   !!features &&
-  features.version === query.version &&
+  features.version === query.featureVersion &&
   query.value.some(value =>
                    isNumberArray(features.value) &&
                    filters.cosineSimilarity(features.value, value));

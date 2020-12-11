@@ -15,18 +15,19 @@ export const translate = (
 ): EngineCondition<AudienceDefinitionFilter>[] => {
 
   const {
+    featureVersion,
+    queryProperty,
     filterComparisonType,
     value,
-    featureVersion,
-    queryProperty
+    occurrences,
   } = audienceDefinition.definition;
 
   return [{
     filter: {
       queries: [
         {
-          version: featureVersion,
-          property: queryProperty,
+          featureVersion,
+          queryProperty,
           filterComparisonType,
           value,
         } as EngineConditionQuery<AudienceDefinitionFilter>,
@@ -39,7 +40,7 @@ export const translate = (
         },
         matcher: {
           name: 'gt',
-          args: audienceDefinition.definition.occurrences,
+          args: occurrences,
         },
       },
     ],

@@ -54,19 +54,7 @@ export interface MatchedAudience {
   matchedOnCurrentPageView: boolean;
 }
 
-export type StringArrayQueryValue = string[];
-export type VectorQueryValue = {
-  vector: number[];
-  threshold: number;
-};
-
 export type AudienceState = 'live' | 'paused' | 'deleted';
-
-export enum QueryFilterComparisonType {
-  VECTOR_DISTANCE = 'vectorDistance',
-  COSINE_SIMILARITY = 'cosineSimilarity',
-  ARRAY_INTERSECTS = 'arrayIntersects',
-}
 
 export interface CachedAudienceMetaData {
   cachedAt: number;
@@ -78,9 +66,18 @@ export interface AudienceMetaData {
   version: number;
 }
 
-/* TODO The translation adapter unnecessarily (to my knowledge)
- * change record keys naming, increasing type complexity
- */
+export type StringArrayQueryValue = string[];
+
+export type VectorQueryValue = {
+  vector: number[];
+  threshold: number;
+};
+
+export enum QueryFilterComparisonType {
+  VECTOR_DISTANCE = 'vectorDistance',
+  COSINE_SIMILARITY = 'cosineSimilarity',
+  ARRAY_INTERSECTS = 'arrayIntersects',
+}
 
 export interface ArrayIntersectsFilter {
   value: StringArrayQueryValue;
@@ -102,6 +99,7 @@ export type AudienceDefinitionFilter =
   | CosineSimilarityFilter
   | ArrayIntersectsFilter
 
+// Not a good name...
 export type AudienceDefinitionDefinition = {
   featureVersion: number;
   ttl: number;
@@ -121,17 +119,6 @@ export interface AudienceDefinition {
 
 // Engine
 
-/* TODO Merge AudienceDefinitionFilter and
- * EngineConditionQueryFilter types
- * Actually, these types should be restricted
- * subrecords derived from AudienceDefinitionFilter types
- */
-
-export type EngineConditionQuery<T extends AudienceDefinitionFilter> = {
-  version: number;
-  property: string;
-} & T;
-
 export interface EngineConditionRule {
   reducer: {
     name: 'count';
@@ -141,6 +128,9 @@ export interface EngineConditionRule {
     args: number;
   };
 }
+
+export type EngineConditionQuery<T extends AudienceDefinitionFilter> =
+  Pick<AudienceDefinitionDefinition, "featureVersion" | "queryProperty"> & T
 
 export interface EngineCondition<T extends AudienceDefinitionFilter> {
   filter: {
@@ -195,8 +185,3 @@ declare global {
     ): void;
   }
 }
-
-// type UnionToIntersection<T> =
-//   (T extends any ? (x: T) => any : never) extends
-//   (x: infer R) => any ? R : never
-

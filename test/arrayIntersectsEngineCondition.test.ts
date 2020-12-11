@@ -1,14 +1,19 @@
 import 'jest';
 import { check } from '../src/engine';
-import { EngineCondition, QueryFilterComparisonType, ArrayIntersectsFilter } from '../types';
+import {
+  EngineCondition,
+  QueryFilterComparisonType,
+  ArrayIntersectsFilter,
+  PageView
+} from '../types';
 
 const sports1xConditionGt: EngineCondition<ArrayIntersectsFilter> = {
   filter: {
     any: false,
     queries: [
       {
-        version: 1,
-        property: 'keywords',
+        featureVersion: 1,
+        queryProperty: 'keywords',
         filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
         value: ['sport'],
       },
@@ -32,8 +37,8 @@ const sports1xConditionLt: EngineCondition<ArrayIntersectsFilter> = {
     any: false,
     queries: [
       {
-        version: 1,
-        property: 'keywords',
+        featureVersion: 1,
+        queryProperty: 'keywords',
         filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
         value: ['sport'],
       },
@@ -57,8 +62,8 @@ const sports1xConditionEq: EngineCondition<ArrayIntersectsFilter> = {
     any: false,
     queries: [
       {
-        version: 1,
-        property: 'keywords',
+        featureVersion: 1,
+        queryProperty: 'keywords',
         filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
         value: ['sport'],
       },
@@ -82,8 +87,8 @@ const sports1xConditionGe: EngineCondition<ArrayIntersectsFilter> = {
     any: false,
     queries: [
       {
-        version: 1,
-        property: 'keywords',
+        featureVersion: 1,
+        queryProperty: 'keywords',
         filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
         value: ['sport'],
       },
@@ -107,8 +112,8 @@ const sports1xConditionLe: EngineCondition<ArrayIntersectsFilter> = {
     any: false,
     queries: [
       {
-        version: 1,
-        property: 'keywords',
+        featureVersion: 1,
+        queryProperty: 'keywords',
         filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
         value: ['sport'],
       },
@@ -132,7 +137,7 @@ describe('Engine test', () => {
     it('evaluates first model with gt matcher', async () => {
       const conditions = [sports1xConditionGt];
 
-      const pageViews = [
+      const pageViews: PageView[] = [
         {
           ts: 100,
           features: {
@@ -161,7 +166,7 @@ describe('Engine test', () => {
     it('evaluates first model with lt matcher', async () => {
       const conditions = [sports1xConditionLt];
 
-      const pageViews = [
+      const pageViews: PageView[] = [
         {
           ts: 100,
           features: {
@@ -190,7 +195,7 @@ describe('Engine test', () => {
     it('evaluates first model with eq matcher', async () => {
       const conditions = [sports1xConditionEq];
 
-      const pageViews = [
+      const pageViews: PageView[] = [
         {
           ts: 100,
           features: {
@@ -219,7 +224,7 @@ describe('Engine test', () => {
     it('evaluates first model with ge matcher', async () => {
       const conditions = [sports1xConditionGe];
 
-      const pageViews = [
+      const pageViews: PageView[] = [
         {
           ts: 100,
           features: {
@@ -244,7 +249,7 @@ describe('Engine test', () => {
 
       expect(result).toEqual(true);
 
-      const pageViews2 = [
+      const pageViews2: PageView[] = [
         {
           ts: 100,
           features: {
@@ -273,7 +278,7 @@ describe('Engine test', () => {
     it('evaluates first model with le matcher', async () => {
       const conditions = [sports1xConditionLe];
 
-      const pageViews = [
+      const pageViews: PageView[] = [
         {
           ts: 100,
           features: {
@@ -298,7 +303,7 @@ describe('Engine test', () => {
 
       expect(result).toEqual(true);
 
-      const pageViews2 = [
+      const pageViews2: PageView[] = [
         {
           ts: 100,
           features: {
@@ -327,7 +332,7 @@ describe('Engine test', () => {
     it('evaluates first model with a false match', async () => {
       const conditions = [sports1xConditionGt];
 
-      const pageViews = [
+      const pageViews: PageView[] = [
         {
           ts: 100,
           features: {
@@ -352,7 +357,7 @@ describe('Engine test', () => {
 
       expect(result).toEqual(false);
 
-      const pageViews2 = [
+      const pageViews2: PageView[] = [
         {
           ts: 100,
           features: {
