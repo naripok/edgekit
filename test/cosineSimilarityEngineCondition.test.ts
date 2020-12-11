@@ -1,6 +1,8 @@
 import { check } from '../src/engine';
 import { EngineCondition, QueryFilterComparisonType } from '../types';
 
+/* TODO Property based tests for engine behaviors
+*/
 const cosineSimilarityCondition: EngineCondition = {
   filter: {
     any: false,

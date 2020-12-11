@@ -2,6 +2,8 @@ import 'jest';
 import { check } from '../src/engine';
 import { EngineCondition, QueryFilterComparisonType } from '../types';
 
+/* TODO Property based tests for engine behaviors
+*/
 const vectorCondition: EngineCondition = {
   filter: {
     any: false,

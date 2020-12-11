@@ -1,6 +1,9 @@
 import { AudienceDefinition, QueryFilterComparisonType } from '../types';
 import { edkt } from '../src';
 
+/* TODO Mock localStorage and merge single and
+ * multiple vectors AudienceDefiniciton tests
+ */
 const cosineSimAudience: AudienceDefinition = {
   definition: {
     featureVersion: 1,

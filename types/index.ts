@@ -68,38 +68,6 @@ export enum QueryFilterComparisonType {
   ARRAY_INTERSECTS = 'arrayIntersects',
 }
 
-export interface VectorDistanceFilter {
-  queryValue: VectorQueryValue[];
-  queryFilterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE;
-}
-
-export interface CosineSimilarityFilter {
-  queryValue: VectorQueryValue[];
-  queryFilterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY;
-}
-
-export interface ArrayIntersectsFilter {
-  queryValue: StringArrayQueryValue;
-  queryFilterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS;
-}
-
-export type AudienceDefinitionDefinition = {
-  featureVersion: number;
-  ttl: number;
-  lookBack: number;
-  occurrences: number;
-  queryProperty: string;
-} & (VectorDistanceFilter | CosineSimilarityFilter | ArrayIntersectsFilter)
-
-export interface AudienceDefinition {
-  accountId?: Record<string, AudienceState>;
-  id: string;
-  version: number;
-  name: string;
-  cacheFor?: number;
-  definition: AudienceDefinitionDefinition
-}
-
 export interface CachedAudienceMetaData {
   cachedAt: number;
   audiences: AudienceMetaData[];
@@ -110,7 +78,54 @@ export interface AudienceMetaData {
   version: number;
 }
 
+/* TODO The translation adapter unnecessarily (to my knowledge)
+ * change record keys naming, increasing type complexity
+ */
+
+export interface ArrayIntersectsFilter {
+  queryValue: StringArrayQueryValue;
+  queryFilterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS;
+}
+
+export interface VectorDistanceFilter {
+  queryValue: VectorQueryValue[];
+  queryFilterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE;
+}
+
+export interface CosineSimilarityFilter {
+  queryValue: VectorQueryValue[];
+  queryFilterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY;
+}
+
+export type AudienceDefinitionFilter =
+  | VectorDistanceFilter
+  | CosineSimilarityFilter
+  | ArrayIntersectsFilter
+
+export type AudienceDefinitionDefinition = {
+  featureVersion: number;
+  ttl: number;
+  lookBack: number;
+  occurrences: number;
+  queryProperty: string;
+} & AudienceDefinitionFilter;
+
+export interface AudienceDefinition {
+  accountId?: Record<string, AudienceState>;
+  id: string;
+  version: number;
+  name: string;
+  cacheFor?: number;
+  definition: AudienceDefinitionDefinition
+}
+
 // Engine
+
+/* TODO Merge AudienceDefinitionFilter and
+ * EngineConditionQueryFilter types
+ * Actually, these types should be restricted
+ * subrecords derived from AudienceDefinitionFilter types
+ */
 
 export type EngineConditionQueryArrayIntersectsFilter = {
   filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS;
@@ -127,10 +142,15 @@ export type EngineConditionQueryCosineSimilarityFilter = {
   value: VectorQueryValue[];
 }
 
+export type EngineConditionFilter =
+  | EngineConditionQueryArrayIntersectsFilter
+  | EngineConditionQueryVectorDistanceFilter
+  | EngineConditionQueryCosineSimilarityFilter;
+
 export type EngineConditionQuery = {
   version: number;
   property: string;
-} & (EngineConditionQueryCosineSimilarityFilter | EngineConditionQueryVectorDistanceFilter | EngineConditionQueryArrayIntersectsFilter)
+} & EngineConditionFilter;
 
 export interface EngineConditionRule {
   reducer: {
@@ -195,3 +215,8 @@ declare global {
     ): void;
   }
 }
+
+// type UnionToIntersection<T> =
+//   (T extends any ? (x: T) => any : never) extends
+//   (x: infer R) => any ? R : never
+

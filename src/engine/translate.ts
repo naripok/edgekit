@@ -1,49 +1,27 @@
-import { AudienceDefinition, EngineCondition, QueryFilterComparisonType } from '../../types';
-import { isStringArray, isVectorQueryValue } from '../utils';
+import {
+  AudienceDefinition,
+  EngineCondition,
+  EngineConditionQuery,
+} from '../../types';
 
+/*
+ * I'm maintaining the union over the translation layer
+ * so the compiler can discriminate it further bellow in the computation
+ * TODO Better audienceDefinition validation
+ */
 export const translate = (
   audienceDefinition: AudienceDefinition
 ): EngineCondition[] => {
-  const condition: EngineCondition = {
+  return [{
     filter: {
-      queries:
-        audienceDefinition.definition.queryFilterComparisonType ===
-          QueryFilterComparisonType.ARRAY_INTERSECTS &&
-        isStringArray(audienceDefinition.definition.queryValue)
-          ? [
-              {
-                version: audienceDefinition.definition.featureVersion,
-                property: audienceDefinition.definition.queryProperty,
-                filterComparisonType:
-                  audienceDefinition.definition.queryFilterComparisonType,
-                value: audienceDefinition.definition.queryValue,
-              },
-            ]
-          : audienceDefinition.definition.queryFilterComparisonType ===
-              QueryFilterComparisonType.VECTOR_DISTANCE &&
-            audienceDefinition.definition.queryValue.every(isVectorQueryValue)
-          ? [
-              {
-                version: audienceDefinition.definition.featureVersion,
-                property: audienceDefinition.definition.queryProperty,
-                filterComparisonType:
-                  audienceDefinition.definition.queryFilterComparisonType,
-                value: audienceDefinition.definition.queryValue,
-              },
-            ]
-          : audienceDefinition.definition.queryFilterComparisonType ===
-            QueryFilterComparisonType.COSINE_SIMILARITY &&
-          audienceDefinition.definition.queryValue.every(isVectorQueryValue)
-          ? [
-              {
-                version: audienceDefinition.definition.featureVersion,
-                property: audienceDefinition.definition.queryProperty,
-                filterComparisonType:
-                  audienceDefinition.definition.queryFilterComparisonType,
-                value: audienceDefinition.definition.queryValue,
-              },
-            ]
-          : [],
+      queries: [
+        {
+          version: audienceDefinition.definition.featureVersion,
+          property: audienceDefinition.definition.queryProperty,
+          filterComparisonType: audienceDefinition.definition.queryFilterComparisonType,
+          value: audienceDefinition.definition.queryValue,
+        } as EngineConditionQuery,
+      ]
     },
     rules: [
       {
@@ -56,7 +34,5 @@ export const translate = (
         },
       },
     ],
-  };
-
-  return [condition];
+  }];
 };
