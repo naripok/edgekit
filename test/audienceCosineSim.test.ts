@@ -9,9 +9,9 @@ const cosineSimAudience: AudienceDefinition = {
     featureVersion: 1,
     lookBack: 2592000,
     occurrences: 1,
-    queryFilterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY,
+    filterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY,
     queryProperty: 'dv',
-    queryValue: [{
+    value: [{
       threshold: 0.8,
       vector: [1,1,1],
     }],

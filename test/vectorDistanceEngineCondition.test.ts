@@ -1,10 +1,10 @@
 import 'jest';
 import { check } from '../src/engine';
-import { EngineCondition, QueryFilterComparisonType } from '../types';
+import { EngineCondition, QueryFilterComparisonType, VectorDistanceFilter } from '../types';
 
 /* TODO Property based tests for engine behaviors
 */
-const vectorCondition: EngineCondition = {
+const vectorCondition: EngineCondition<VectorDistanceFilter> = {
   filter: {
     any: false,
     queries: [
@@ -33,7 +33,7 @@ const vectorCondition: EngineCondition = {
 };
 
 // Vector condition with a bumped version
-const vectorConditionV2: EngineCondition = {
+const vectorConditionV2: EngineCondition<VectorDistanceFilter> = {
   filter: {
     any: false,
     queries: [

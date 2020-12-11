@@ -1,8 +1,8 @@
 import 'jest';
 import { check } from '../src/engine';
-import { EngineCondition, QueryFilterComparisonType } from '../types';
+import { EngineCondition, QueryFilterComparisonType, ArrayIntersectsFilter } from '../types';
 
-const sports1xConditionGt: EngineCondition = {
+const sports1xConditionGt: EngineCondition<ArrayIntersectsFilter> = {
   filter: {
     any: false,
     queries: [
@@ -27,7 +27,7 @@ const sports1xConditionGt: EngineCondition = {
   ],
 };
 
-const sports1xConditionLt: EngineCondition = {
+const sports1xConditionLt: EngineCondition<ArrayIntersectsFilter> = {
   filter: {
     any: false,
     queries: [
@@ -52,7 +52,7 @@ const sports1xConditionLt: EngineCondition = {
   ],
 };
 
-const sports1xConditionEq: EngineCondition = {
+const sports1xConditionEq: EngineCondition<ArrayIntersectsFilter> = {
   filter: {
     any: false,
     queries: [
@@ -77,7 +77,7 @@ const sports1xConditionEq: EngineCondition = {
   ],
 };
 
-const sports1xConditionGe: EngineCondition = {
+const sports1xConditionGe: EngineCondition<ArrayIntersectsFilter> = {
   filter: {
     any: false,
     queries: [
@@ -102,7 +102,7 @@ const sports1xConditionGe: EngineCondition = {
   ],
 };
 
-const sports1xConditionLe: EngineCondition = {
+const sports1xConditionLe: EngineCondition<ArrayIntersectsFilter> = {
   filter: {
     any: false,
     queries: [

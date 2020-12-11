@@ -2,6 +2,7 @@ import {
   AudienceDefinition,
   EngineCondition,
   EngineConditionQuery,
+  AudienceDefinitionFilter,
 } from '../../types';
 
 /*
@@ -11,7 +12,7 @@ import {
  */
 export const translate = (
   audienceDefinition: AudienceDefinition
-): EngineCondition[] => {
+): EngineCondition<AudienceDefinitionFilter>[] => {
 
   const {
     filterComparisonType,
@@ -28,7 +29,7 @@ export const translate = (
           property: queryProperty,
           filterComparisonType,
           value,
-        } as EngineConditionQuery,
+        } as EngineConditionQuery<AudienceDefinitionFilter>,
       ]
     },
     rules: [

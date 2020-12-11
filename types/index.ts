@@ -127,10 +127,10 @@ export interface AudienceDefinition {
  * subrecords derived from AudienceDefinitionFilter types
  */
 
-export type EngineConditionQuery = {
+export type EngineConditionQuery<T extends AudienceDefinitionFilter> = {
   version: number;
   property: string;
-} & AudienceDefinitionFilter;
+} & T;
 
 export interface EngineConditionRule {
   reducer: {
@@ -142,10 +142,10 @@ export interface EngineConditionRule {
   };
 }
 
-export interface EngineCondition {
+export interface EngineCondition<T extends AudienceDefinitionFilter> {
   filter: {
     any?: boolean;
-    queries: EngineConditionQuery[];
+    queries: EngineConditionQuery<T>[];
   };
   rules: EngineConditionRule[];
 }

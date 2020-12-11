@@ -1,9 +1,14 @@
 import { check } from '../src/engine';
-import { EngineCondition, QueryFilterComparisonType } from '../types';
+import {
+  EngineCondition,
+  QueryFilterComparisonType,
+  CosineSimilarityFilter,
+  PageView
+} from '../types';
 
 /* TODO Property based tests for engine behaviors
 */
-const cosineSimilarityCondition: EngineCondition = {
+const cosineSimilarityCondition: EngineCondition<CosineSimilarityFilter> = {
   filter: {
     any: false,
     queries: [
@@ -31,7 +36,7 @@ const cosineSimilarityCondition: EngineCondition = {
   ],
 };
 
-const multipleCosineSimilarityCondition: EngineCondition = {
+const multipleCosineSimilarityCondition: EngineCondition<CosineSimilarityFilter> = {
   filter: {
     any: false,
     queries: [
@@ -65,7 +70,7 @@ const multipleCosineSimilarityCondition: EngineCondition = {
 
 
 // Vector condition with a bumped version
-const cosineSimilarityConditionV2: EngineCondition = {
+const cosineSimilarityConditionV2: EngineCondition<CosineSimilarityFilter> = {
   filter: {
     any: false,
     queries: [
@@ -102,7 +107,7 @@ describe('Cosine Similarity condition test', () => {
     it('matches the page view if similar enough', () => {
       const conditions = [cosineSimilarityCondition];
 
-      const pageViews = [
+      const pageViews: PageView[] = [
         {
           ts: 100,
           features: {
@@ -122,7 +127,7 @@ describe('Cosine Similarity condition test', () => {
     it('does not match the page view if not similar enough', () => {
       const conditions = [cosineSimilarityCondition];
 
-      const pageViews = [
+      const pageViews: PageView[] = [
         {
           ts: 100,
           features: {
@@ -153,7 +158,7 @@ describe('Cosine Similarity condition test', () => {
     it('matches the page view if similar enough and has the same version', () => {
       const conditions = [cosineSimilarityConditionV2];
 
-      const pageViews = [
+      const pageViews: PageView[] = [
         {
           ts: 100,
           features: {
@@ -173,7 +178,7 @@ describe('Cosine Similarity condition test', () => {
     it('does not match the page view if similar enough but does not have the same version', () => {
       const conditions = [cosineSimilarityConditionV2];
 
-      const pageViews = [
+      const pageViews: PageView[] = [
         {
           ts: 100,
           features: {
@@ -228,7 +233,7 @@ describe('Cosine Similarity condition test', () => {
     it('matches the page views if similar enough with all audience vector', () => {
       const conditions = [multipleCosineSimilarityCondition];
 
-      const pageViews = [
+      const pageViews: PageView[] = [
         {
           ts: 100,
           features: {
@@ -256,7 +261,7 @@ describe('Cosine Similarity condition test', () => {
     it('does not match the page view if not similar enough', () => {
       const conditions = [cosineSimilarityCondition];
 
-      const pageViews = [
+      const pageViews: PageView[] = [
         {
           ts: 100,
           features: {
