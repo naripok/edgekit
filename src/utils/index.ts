@@ -74,15 +74,15 @@ export const isVectorQueryValue = (
 
 export const isArrayIntersectsFilter =
   (query: EngineConditionQuery<AudienceDefinitionFilter>): query is EngineConditionQuery<ArrayIntersectsFilter> => {
-  return query.filterComparisonType === QueryFilterComparisonType.ARRAY_INTERSECTS // && isStringArray(query.value)
+  return query.queryFilterComparisonType === QueryFilterComparisonType.ARRAY_INTERSECTS // && isStringArray(query.value)
 }
 
 export const isVectorDistanceFilter =
   (query: EngineConditionQuery<AudienceDefinitionFilter>): query is EngineConditionQuery<VectorDistanceFilter> => {
-  return query.filterComparisonType === QueryFilterComparisonType.VECTOR_DISTANCE // && query.value.every(arr => isNumberArray(arr))
+  return query.queryFilterComparisonType === QueryFilterComparisonType.VECTOR_DISTANCE // && query.value.every(arr => isNumberArray(arr))
 }
 
 export const isCosineSimilarityFilter =
   (query: EngineConditionQuery<AudienceDefinitionFilter>): query is EngineConditionQuery<CosineSimilarityFilter> => {
-  return query.filterComparisonType === QueryFilterComparisonType.COSINE_SIMILARITY // && query.value.every(arr => isNumberArray(arr))
+  return query.queryFilterComparisonType === QueryFilterComparisonType.COSINE_SIMILARITY // && query.value.every(arr => isNumberArray(arr))
 }

@@ -67,13 +67,13 @@ const checkArrayIntersects =
   !!features &&
   features.version === query.featureVersion &&
   isStringArray(features.value) &&
-  filters.arrayIntersects(features.value, query.value);
+  filters.arrayIntersects(features.value, query.queryValue);
 
 const checkVectorDistanceLesserThanThreshold =
   (features: PageFeatureResult, query: EngineConditionQuery<VectorDistanceFilter>): boolean =>
   !!features &&
   features.version === query.featureVersion &&
-  query.value.some(value =>
+  query.queryValue.some(value =>
                    isNumberArray(features.value) &&
                    filters.vectorDistance(features.value, value));
 
@@ -81,6 +81,6 @@ const checkCosineSimilarityLesserThanThreshold =
   (features: PageFeatureResult, query: EngineConditionQuery<CosineSimilarityFilter>): boolean =>
   !!features &&
   features.version === query.featureVersion &&
-  query.value.some(value =>
+  query.queryValue.some(value =>
                    isNumberArray(features.value) &&
                    filters.cosineSimilarity(features.value, value));

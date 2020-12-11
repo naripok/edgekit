@@ -15,8 +15,8 @@ const cosineSimilarityCondition: EngineCondition<CosineSimilarityFilter> = {
       {
         featureVersion: 1,
         queryProperty: 'topicDist',
-        filterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY,
-        value: [{
+        queryFilterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY,
+        queryValue: [{
           vector: [0.4, 0.8, 0.3],
           threshold: 0.99,
         }],
@@ -43,8 +43,8 @@ const multipleCosineSimilarityCondition: EngineCondition<CosineSimilarityFilter>
       {
         featureVersion: 1,
         queryProperty: 'topicDist',
-        filterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY,
-        value: [{
+        queryFilterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY,
+        queryValue: [{
           vector: [0.4, 0.8, 0.3],
           threshold: 0.99,
         },
@@ -77,8 +77,8 @@ const cosineSimilarityConditionV2: EngineCondition<CosineSimilarityFilter> = {
       {
         featureVersion: 2,
         queryProperty: 'topicDist',
-        filterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY,
-        value: [{
+        queryFilterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY,
+        queryValue: [{
           vector: [0.4, 0.8, 0.3],
           threshold: 0.99,
         }],

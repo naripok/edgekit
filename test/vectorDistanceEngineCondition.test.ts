@@ -16,8 +16,8 @@ const vectorCondition: EngineCondition<VectorDistanceFilter> = {
       {
         featureVersion: 1,
         queryProperty: 'topicDist',
-        filterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
-        value: [{
+        queryFilterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
+        queryValue: [{
           vector: [0.4, 0.8, 0.3],
           threshold: 0.5,
         }],
@@ -45,8 +45,8 @@ const vectorConditionV2: EngineCondition<VectorDistanceFilter> = {
       {
         featureVersion: 2,
         queryProperty: 'topicDist',
-        filterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
-        value: [{
+        queryFilterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE,
+        queryValue: [{
           vector: [0.4, 0.8, 0.3],
           threshold: 0.5,
         }],

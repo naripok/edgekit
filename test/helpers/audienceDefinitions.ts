@@ -41,8 +41,8 @@ export const sportInterestAudience: AudienceDefinition = {
     lookBack: LOOK_BACK_IN_SECS,
     occurrences: OCCURRENCES,
     queryProperty: 'keywords',
-    value: sportKeywords,
-    filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
+    queryValue: sportKeywords,
+    queryFilterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
   },
 };
 
@@ -56,8 +56,8 @@ export const travelInterestAudience: AudienceDefinition = {
     lookBack: LOOK_BACK_IN_SECS,
     occurrences: OCCURRENCES,
     queryProperty: 'keywords',
-    value: travelKeywords,
-    filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
+    queryFilterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
+    queryValue: travelKeywords,
   },
 };
 
@@ -71,8 +71,8 @@ export const automotiveInterestAudience: AudienceDefinition = {
     lookBack: LOOK_BACK_IN_SECS,
     occurrences: OCCURRENCES,
     queryProperty: 'keywords',
-    value: automotiveKeywords,
-    filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
+    queryFilterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS,
+    queryValue: automotiveKeywords,
   },
 };
 

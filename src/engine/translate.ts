@@ -17,8 +17,8 @@ export const translate = (
   const {
     featureVersion,
     queryProperty,
-    filterComparisonType,
-    value,
+    queryFilterComparisonType,
+    queryValue,
     occurrences,
   } = audienceDefinition.definition;
 
@@ -28,8 +28,8 @@ export const translate = (
         {
           featureVersion,
           queryProperty,
-          filterComparisonType,
-          value,
+          queryFilterComparisonType,
+          queryValue,
         } as EngineConditionQuery<AudienceDefinitionFilter>,
       ]
     },

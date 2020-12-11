@@ -80,18 +80,18 @@ export enum QueryFilterComparisonType {
 }
 
 export interface ArrayIntersectsFilter {
-  value: StringArrayQueryValue;
-  filterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS;
+  queryValue: StringArrayQueryValue;
+  queryFilterComparisonType: QueryFilterComparisonType.ARRAY_INTERSECTS;
 }
 
 export interface VectorDistanceFilter {
-  value: VectorQueryValue[];
-  filterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE;
+  queryValue: VectorQueryValue[];
+  queryFilterComparisonType: QueryFilterComparisonType.VECTOR_DISTANCE;
 }
 
 export interface CosineSimilarityFilter {
-  value: VectorQueryValue[];
-  filterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY;
+  queryValue: VectorQueryValue[];
+  queryFilterComparisonType: QueryFilterComparisonType.COSINE_SIMILARITY;
 }
 
 export type AudienceDefinitionFilter =
