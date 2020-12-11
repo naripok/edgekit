@@ -5,7 +5,7 @@ import {
   ArrayIntersectsFilter,
   VectorDistanceFilter,
   CosineSimilarityFilter,
-  AudienceDefinitionFilter
+  AudienceDefinitionFilter,
 } from '../../types';
 
 export const timeStampInSecs = (): number => Math.round(Date.now() / 1000);
@@ -72,17 +72,20 @@ export const isVectorQueryValue = (
 ): value is VectorQueryValue =>
   isNumberArray(value.vector) && typeof value.threshold === 'number';
 
-export const isArrayIntersectsFilter =
-  (query: EngineConditionQuery<AudienceDefinitionFilter>): query is EngineConditionQuery<ArrayIntersectsFilter> => {
+export const isArrayIntersectsFilter = (
+  query: EngineConditionQuery<AudienceDefinitionFilter>
+): query is EngineConditionQuery<ArrayIntersectsFilter> => {
   return query.queryFilterComparisonType === QueryFilterComparisonType.ARRAY_INTERSECTS // && isStringArray(query.value)
 }
 
-export const isVectorDistanceFilter =
-  (query: EngineConditionQuery<AudienceDefinitionFilter>): query is EngineConditionQuery<VectorDistanceFilter> => {
+export const isVectorDistanceFilter = (
+  query: EngineConditionQuery<AudienceDefinitionFilter>
+): query is EngineConditionQuery<VectorDistanceFilter> => {
   return query.queryFilterComparisonType === QueryFilterComparisonType.VECTOR_DISTANCE // && query.value.every(arr => isNumberArray(arr))
 }
 
-export const isCosineSimilarityFilter =
-  (query: EngineConditionQuery<AudienceDefinitionFilter>): query is EngineConditionQuery<CosineSimilarityFilter> => {
+export const isCosineSimilarityFilter = (
+  query: EngineConditionQuery<AudienceDefinitionFilter>
+): query is EngineConditionQuery<CosineSimilarityFilter> => {
   return query.queryFilterComparisonType === QueryFilterComparisonType.COSINE_SIMILARITY // && query.value.every(arr => isNumberArray(arr))
 }
