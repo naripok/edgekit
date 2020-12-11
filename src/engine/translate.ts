@@ -11,7 +11,7 @@ import {
  * TODO Better audienceDefinition validation
  */
 export const translate = (
-  audienceDefinition: AudienceDefinition
+  audienceDefinition: Readonly<Pick<AudienceDefinition, "definition">>
 ): EngineCondition<AudienceDefinitionFilter>[] => {
 
   const {
