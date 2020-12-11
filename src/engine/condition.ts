@@ -63,6 +63,8 @@ const createCondition = (condition: EngineCondition<AudienceDefinitionFilter>) =
 
 export default createCondition;
 
+/* Matching conditions pieces */
+
 const isArrayIntersects =
   (features: PageFeatureResult, query: EngineConditionQuery<ArrayIntersectsFilter>): boolean =>
   !!features &&
@@ -81,11 +83,21 @@ const isCosineSimilarityLesserThanThreshold =
   versionMatches(features, query) &&
   numberVectorArrayFilterMatches(filters.cosineSimilarity, features, query);
 
+/* Matching conditions pieces */
+
 const versionMatches = (
   features: PageFeatureResult,
   query: EngineConditionQuery<AudienceDefinitionFilter>
 ): boolean => features.version === query.featureVersion
 
+/* In the current implementation
+ * this should actually take a filter of type
+ * (arg0: PageFeatureValue, arg1: string[]) => boolean
+ * so to match the possibility of features
+ * of a mismatching type returning a truthy
+ * value.
+ * Relates to the above comment on createCondition.
+ * */
 const stringArrayFilterMatches = (
   filter: (arg0: string[], arg1: string[]) => boolean,
   features: PageFeatureResult,
@@ -94,6 +106,14 @@ const stringArrayFilterMatches = (
   isStringArray(features.value) &&
   filter(features.value, query.queryValue);
 
+/* In the current implementation
+ * this should actually take a filter of type
+ * (arg0: PageFeatureValue, arg1: VectorQueryValue) => boolean
+ * so to match the possibility of features
+ * of a mismatching type returning a truthy
+ * value.
+ * Relates to the above comment on createCondition.
+ * */
 const numberVectorArrayFilterMatches = (
   filter: (arg0: number[], arg1: VectorQueryValue) => boolean,
   features: PageFeatureResult,
